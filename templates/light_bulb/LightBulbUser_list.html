@@ -5,8 +5,29 @@
     <title>Light Bulbs List</title>
 </head>
 <body>
-    {% for light in object_list %}
-        <li>{{ light.name }} {{ light.bulb_status }}</li>
-    {% endfor %}
+    {% csrf_token %}
+    <h1 id="app">{{ text }}</h1>
+    {#    {% for light in object_list %}#}
+{#        <li>{{ light.name }} {% if light.bulb_status %}ON{% else %}OFF{% endif %}</li>#}
+{#    {% endfor %}#}
+    <script>
+        var socket = new WebSocket("ws://localhost:8000/ws/some_url/");
+
+        socket.onmessage = function(event){
+            var data = JSON.parse(event.data);
+            console.log(data);
+            document.querySelector('#app').innerText = data.message;
+        }
+
+        {#socket.onopen = function(e) {#}
+        {#  alert("[open] Connection established");#}
+        {#  alert("Sending to server");#}
+        {#  socket.send("My name is John");#}
+        {# };#}
+        {##}
+        {#socket.onmessage = function(event) {#}
+        {#  alert(`[message] Data received from server: ${event.data}`);#}
+        {# };#}
+    </script>
 </body>
 </html>

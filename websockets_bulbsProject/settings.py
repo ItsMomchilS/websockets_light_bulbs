@@ -8,7 +8,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -16,6 +15,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'channels',
 
     'light_bulb',
 ]
@@ -50,21 +52,39 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'websockets_bulbsProject.wsgi.application'
+ASGI_APPLICATION = "websockets_bulbsProject.asgi.application"
 
+CHANNEL_LAYERS = {
+    'default': {
+        # Method 1: Via redis lab
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #     "hosts": [
+        #       'redis://h:<password>;@<redis Endpoint>:<port>'
+        #     ],
+        # },
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+        # Method 2: Via local Redis
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #      "hosts": [('127.0.0.1', 6379)],
+        # },
+
+        # Method 3: Via In-memory channel layer
+        # Using this method.
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
+        # 'PORT': 3306,
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -81,10 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -95,13 +111,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = '/static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

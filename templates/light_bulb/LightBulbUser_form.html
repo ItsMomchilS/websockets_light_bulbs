@@ -5,12 +5,17 @@
     <title>Light Bulbs</title>
 </head>
 <body>
-    <form method="post">
-        {% csrf_token %}
-        <ul>
-        <input type="text" id="name" name="name" placeholder="Your name here"><br>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
         <input type="submit" value="Register a new light bulb">
-        </ul>
     </form>
+
+{#    <form method="post">#}
+{#        {% csrf_token %}#}
+{#        <ul>#}
+{#        <input type="text" id="name" name="name" placeholder="Your name here"><br>#}
+{#        <input type="submit" value="Register a new light bulb">#}
+{#        </ul>#}
+{#    </form>#}
 </body>
 </html>
