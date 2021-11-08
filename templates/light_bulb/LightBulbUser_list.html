@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Light Bulbs List</title>
+</head>
+<body>
+    {% for light in object_list %}
+        <li>{{ light.name }} {{ light.bulb_status }}</li>
+    {% endfor %}
+</body>
+</html>
